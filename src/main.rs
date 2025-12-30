@@ -9,7 +9,7 @@ use win32::*;
 
 fn main() -> Result<ExitCode> {
     let class_guid = GUID::from_u128(0x4d36e972_e325_11ce_bfc1_08002be10318);
-    let instance_id = "PCI\\VEN_11AB&DEV_2B38&SUBSYS_045E0008";
+    let instance_id = "PCI\\VEN_11AB&DEV_2B38&SUBSYS_045E0008&REV_00\\4&22AAFC1D&0&00E0";
     unsafe {
         let dev_info_set = DeviceInfoSet::new(class_guid)?;
         let dev_info_data = match dev_info_set.find_device(instance_id)? {
