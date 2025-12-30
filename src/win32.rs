@@ -1,3 +1,5 @@
+use std::iter;
+
 use windows::{
     Win32::{
         Devices::DeviceAndDriverInstallation::{
@@ -7,8 +9,9 @@ use windows::{
             SetupDiGetClassDevsW, SetupDiGetDeviceInstanceIdW, SetupDiSetClassInstallParamsW,
         },
         Foundation::ERROR_INSUFFICIENT_BUFFER,
+        UI::WindowsAndMessaging::{MESSAGEBOX_STYLE, MessageBoxW},
     },
-    core::{GUID, Result},
+    core::{GUID, PCWSTR, Result, w},
 };
 
 pub struct DeviceInfoSet(HDEVINFO);
@@ -123,5 +126,17 @@ impl Drop for DeviceInfoSet {
         unsafe {
             let _ = SetupDiDestroyDeviceInfoList(self.0);
         }
+    }
+}
+
+pub fn show_message_box(text: &str, utype: MESSAGEBOX_STYLE) {
+    let text: Vec<_> = text.encode_utf16().chain(iter::once(0)).collect();
+    unsafe {
+        MessageBoxW(
+            None,
+            PCWSTR::from_raw(text.as_ptr()),
+            w!("surface-wifi-fix"),
+            utype,
+        );
     }
 }
