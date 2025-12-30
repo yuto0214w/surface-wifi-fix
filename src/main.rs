@@ -3,7 +3,7 @@
 use std::process::ExitCode;
 
 use windows::{
-    Win32::UI::WindowsAndMessaging::{MB_ICONERROR, MB_OK},
+    Win32::UI::WindowsAndMessaging::{MB_ICONERROR, MB_ICONINFORMATION, MB_OK},
     core::{GUID, Result},
 };
 
@@ -27,7 +27,7 @@ fn main() -> Result<ExitCode> {
         // dev_info_set.set_device_state(&dev_info_data, false)?;
         // dev_info_set.set_device_state(&dev_info_data, true)?;
 
-        show_message_box("Restarted successfully", MB_OK);
+        show_message_box("Restarted successfully", MB_ICONINFORMATION | MB_OK);
         Ok(ExitCode::SUCCESS)
     })();
 
