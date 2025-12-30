@@ -1,0 +1,16 @@
+[package]
+name = "surface-wifi-fix"
+version = "0.1.0"
+edition = "2024"
+
+[profile.release]
+codegen-units = 1
+lto = true
+panic = "abort"
+strip = true
+
+[dependencies.windows]
+version = "0.62"
+features = [
+    "Win32_Devices_DeviceAndDriverInstallation"
+]
